@@ -28,6 +28,17 @@ def processImage(img, p):
 
 	return res
 
+# Grayscale
+def toGray(img):
+	temp = np.uint8(outImage)
+	img  = cv2.cvtColor(temp, cv2.COLOR_HSV2BGR)
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	return img
+
+# Resize Image
+def resizeImage(img):
+	return cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+
 # View image
 def viewImage(img):
 	cv2.imshow('image',img)
@@ -37,6 +48,12 @@ def viewImage(img):
 # Load image
 img = cv2.imread(path)
 outImage = processImage(img, process)
+
+
+# Convert to grayscale if color
+if (len(outImage.shape) > 2 and outImage.shape[2] == 3):
+	outImage = toGray(outImage)
+
 
 if (preview):
 	viewImage(outImage)
